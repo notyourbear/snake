@@ -1,0 +1,52 @@
+{
+  "name": "snake",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "browserslist": [
+    "> 1%"
+  ],
+  "scripts": {
+    "start": "yarn dev:start",
+    "dev:start": "nodemon -e js,jsx --ignore lib --ignore dist --exec babel-node src/server",
+    "dev:wds": "webpack-dev-server --progress",
+    "lint": "eslint src webpack.config.babel.js --ext .js,.jsx",
+    "test": "yarn lint && jest --coverage",
+    "precommit": "yarn test",
+    "prepush": "yarn test && yarn prod:build",
+    "prod:build": "rimraf lib && babel src -d lib --ignore .test.js"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.0",
+    "babel-core": "^6.24.0",
+    "babel-jest": "^19.0.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-env": "^1.2.2",
+    "babel-preset-react": "^6.23.0",
+    "eslint": "^3.18.0",
+    "eslint-config-airbnb": "latest",
+    "eslint-plugin-compat": "^1.0.2",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^3.0.2 || ^4.0.0",
+    "eslint-plugin-react": "^6.9.0",
+    "husky": "^0.13.3",
+    "jest": "^19.0.2",
+    "nodemon": "^1.11.0",
+    "rimraf": "^2.6.1",
+    "webpack": "^2.3.2",
+    "webpack-dev-server": "^2.4.2"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.23.0",
+    "compression": "^1.6.2",
+    "express": "^4.15.2",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-hot-loader": "next",
+    "react-redux": "^5.0.3",
+    "react-router": "next",
+    "react-router-dom": "next",
+    "redux": "^3.6.0",
+    "redux-actions": "^2.0.1"
+  }
+}

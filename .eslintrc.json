@@ -1,0 +1,13 @@
+{
+  "extends": "airbnb",
+  "rules": {
+    "semi": [2, "never"],
+    "no-unexpected-multiline": 2,
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "arrow-body-style": ["off"]
+  },
+  "env": {
+    "browser": true,
+    "jest": true
+  }
+}
