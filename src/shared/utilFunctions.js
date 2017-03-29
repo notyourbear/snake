@@ -23,7 +23,6 @@ export const findAvailableSpaces = (board) => {
 export const findNextHeadLocation = (dimensions = BOARD_DIMENSIONS, locationOfHead, direction) => {
   const [height, width] = dimensions
   let [row, col] = locationOfHead
-
   if (direction === 'up') row = row === 0 ? height - 1 : row - 1
   if (direction === 'down') row = row === height - 1 ? 0 : row + 1
   if (direction === 'left') col = col === 0 ? width - 1 : col - 1

@@ -29,9 +29,8 @@ const Snake = () => {
   }
 
   const move = (board, headLocation, direction, snakeLength) => {
-    const boardDimensions = [board.length, board[0].length]
+    const boardDimensions = [board.length, board[0].value.length]
     const [rowIndex, cellIndex] = findNextHeadLocation(boardDimensions, headLocation, direction)
-
     return board.map((row, i) => {
       if (i !== rowIndex) return row
       const value = row.value.map((cell, y) => {
