@@ -1,25 +1,30 @@
-import { CRUMPET, GAME_HEIGHT, GAME_WIDTH, INIT_HEAD, INIT_LENGTH } from '../constants/board'
+import { CRUMPET, BOARD_DIMENSIONS, INIT_HEAD, INIT_LENGTH } from '../constants/board'
 import { selectRandom, findAvailableSpaces, findNextHeadLocation } from '../../shared/utilFunctions'
 
 const Snake = () => {
-  const makeBoard = (height = GAME_HEIGHT, width = GAME_WIDTH, headLocation = INIT_HEAD, snakeLength = INIT_LENGTH) => {
+  const makeBoard = (dimensions = BOARD_DIMENSIONS) => {
     const board = []
     const row = []
-    const [rIndex, cIndex] = headLocation
+    const [height, width] = dimensions
 
     for (let i = 0; i < width; i++) {
-      row.push(0)
+      row.push({ id: i, value: 0 })
     }
     for (let i = 0; i < height; i++) {
-      board.push(row)
+      board.push({ id: i, value: row })
     }
+    return board
+  }
 
-    return board.map((r, i) => {
-      if (i !== rIndex) return r
-      return r.map((cell, y) => {
+  const addSnakeHead = (board, headLocation = INIT_HEAD, snakeLength = INIT_LENGTH) => {
+    const [rIndex, cIndex] = headLocation
+    return board.map((row, i) => {
+      if (i !== rIndex) return row
+      const value = row.value.map((cell, y) => {
         if (y !== cIndex) return cell
-        return snakeLength
+        return Object.assign({}, cell, { value: snakeLength })
       })
+      return Object.assign({}, row, { value })
     })
   }
 
@@ -29,31 +34,35 @@ const Snake = () => {
 
     return board.map((row, i) => {
       if (i !== rowIndex) return row
-      return row.map((cell, y) => {
+      const value = row.value.map((cell, y) => {
         if (y !== cellIndex) return cell
-        return snakeLength + 1
+        return Object.assign({}, cell, { value: snakeLength + 1 })
       })
+      return Object.assign({}, row, { value })
     })
   }
 
   const tick = (board) => {
     return board.map((row) => {
-      return row.map((block) => {
-        if (block === CRUMPET) return CRUMPET
-        return block <= 1 ? 0 : block - 1
+      const value = row.value.map((cell) => {
+        if (cell.value === CRUMPET) return cell
+        if (cell.value <= 1) return Object.assign({}, cell, { value: 0 })
+        return Object.assign({}, cell, { value: cell.value - 1 })
       })
+      return Object.assign({}, row, { value })
     })
   }
 
   const addCrumpet = (board) => {
     const availableSpaces = findAvailableSpaces(board)
-    const [rowIndex, blockIndex] = selectRandom(availableSpaces)
+    const [rowIndex, cellIndex] = selectRandom(availableSpaces)
 
     return board.map((row, i) => {
       if (i !== rowIndex) return row
-      return row.map((block, y) => {
-        return (y !== blockIndex) ? block : CRUMPET
+      const value = row.value.map((cell, y) => {
+        return (y !== cellIndex) ? cell : Object.assign({}, cell, { value: CRUMPET })
       })
+      return Object.assign({}, row, { value })
     })
   }
 
@@ -62,6 +71,7 @@ const Snake = () => {
     tick,
     addCrumpet,
     move,
+    addSnakeHead,
   }
 }
 

@@ -7,8 +7,11 @@ test('selectRandom', () => {
 })
 
 test('findAvailableSpaces', () => {
-  const board = [[0, 1], [0, 1]]
-  expect(findAvailableSpaces(board)).toEqual([[0, 0], [1, 0]])
+  const board = [
+    { id: 0, value: [{ id: 0, value: 0 }, { id: 1, value: 0 }] },
+    { id: 1, value: [{ id: 0, value: 2 }, { id: 1, value: 3 }] },
+  ]
+  expect(findAvailableSpaces(board)).toEqual([[0, 0], [0, 1]])
 })
 
 test('findNextHeadLocation', () => {

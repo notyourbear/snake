@@ -5,7 +5,8 @@
     "no-unexpected-multiline": 2,
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "arrow-body-style": ["off"],
-    "max-len": ["error", 120]
+    "max-len": ["error", 120],
+    "react/forbid-prop-types": ["off"]
   },
   "env": {
     "browser": true,

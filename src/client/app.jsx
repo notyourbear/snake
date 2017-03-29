@@ -1,5 +1,12 @@
 import React from 'react'
+import Gameboard from './containers/Gameboard'
 
-const App = () => <h1>Hello React!</h1>
+const App = () => {
+  return (
+    <div>
+      <Gameboard />
+    </div>
+  )
+}
 
 export default App

@@ -1,6 +1,6 @@
-import { GAME_HEIGHT, GAME_WIDTH } from '../client/constants/board'
-
 // eslint-disable-next-line import/prefer-default-export
+import { BOARD_DIMENSIONS } from '../client/constants/board'
+
 export const selectRandom = (array) => {
   const length = array.length
   const place = Math.floor(((Math.random() * length) + 1) - 1)
@@ -8,20 +8,19 @@ export const selectRandom = (array) => {
 }
 
 export const findAvailableSpaces = (board) => {
-  return board.reduce((empties, row, i) => {
-    const blocks = row.reduce((emptyBlocks, block, y) => {
-      return block === 0 ? emptyBlocks.concat(y) : emptyBlocks
+  return board.reduce((empties, row, rowIndex) => {
+    const cells = row.value.reduce((emptyCells, cell, cellIndex) => {
+      return cell.value === 0 ? emptyCells.concat(cellIndex) : emptyCells
     }, [])
 
-    return empties.concat(blocks.map((y) => {
-      return [i, y]
+    return empties.concat(cells.map((cellIndex) => {
+      return [rowIndex, cellIndex]
     }))
   }, [])
 }
 
-const dmnsns = [GAME_HEIGHT, GAME_WIDTH]
-export const findNextHeadLocation = (boardDimenions = dmnsns, locationOfHead, direction) => {
-  const [height, width] = boardDimenions
+export const findNextHeadLocation = (dimensions = BOARD_DIMENSIONS, locationOfHead, direction) => {
+  const [height, width] = dimensions
   let [row, col] = locationOfHead
 
   if (direction === 'up') row = row === 0 ? height - 1 : row - 1

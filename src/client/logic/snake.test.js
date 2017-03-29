@@ -1,27 +1,55 @@
+/* eslint max-len: "off" */
 import Snake from './snake'
 import { CRUMPET } from '../constants/board'
 
 const game = Snake()
+const board = [
+  { id: 0, value: [{ id: 0, value: 0 }, { id: 1, value: 0 }] },
+  { id: 1, value: [{ id: 0, value: 2 }, { id: 1, value: 3 }] },
+]
 
 test('Snake.makeBoard', () => {
-  expect(game.makeBoard(3, 3, [0, 0], 1)).toEqual([[1, 0, 0], [0, 0, 0], [0, 0, 0]])
+  const expected = [
+    { id: 0, value: [{ id: 0, value: 0 }, { id: 1, value: 0 }] },
+    { id: 1, value: [{ id: 0, value: 0 }, { id: 1, value: 0 }] },
+  ]
+  expect(game.makeBoard([2, 2])).toEqual(expected)
+})
+
+test('Snake.addSnakeHead', () => {
+  const expected = [
+    { id: 0, value: [{ id: 0, value: 3 }, { id: 1, value: 0 }] },
+    { id: 1, value: [{ id: 0, value: 2 }, { id: 1, value: 3 }] },
+  ]
+  expect(game.addSnakeHead(board, [0, 0], 3)).toEqual(expected)
 })
 
 test('Snake.tick', () => {
-  const board = [[0, 1], [2, 3]]
-  const expected = [[0, 0], [1, 2]]
+  const expected = [
+    { id: 0, value: [{ id: 0, value: 0 }, { id: 1, value: 0 }] },
+    { id: 1, value: [{ id: 0, value: 1 }, { id: 1, value: 2 }] },
+  ]
   expect(game.tick(board)).toEqual(expected)
 })
 
 test('Snake.addCrumpet', () => {
-  const board = [[0, 1], [2, 3]]
-  const expected = [[CRUMPET, 1], [2, 3]]
-  expect(game.addCrumpet(board)).toEqual(expected)
+  const tboard = [
+    { id: 0, value: [{ id: 0, value: 0 }, { id: 1, value: 1 }] },
+    { id: 1, value: [{ id: 0, value: 2 }, { id: 1, value: 3 }] },
+  ]
+  const expected = [
+    { id: 0, value: [{ id: 0, value: CRUMPET }, { id: 1, value: 1 }] },
+    { id: 1, value: [{ id: 0, value: 2 }, { id: 1, value: 3 }] },
+  ]
+  expect(game.addCrumpet(tboard)).toEqual(expected)
 })
 
 test('Snake.move', () => {
-  const board = [[0, 3], [2, 1]]
-  const expected = [[4, 3], [2, 1]]
-  const head = [0, 1]
-  expect(game.move(board, head, 'left', 3)).toEqual(expected)
+  const head = [1, 1]
+  const expected = [
+    { id: 0, value: [{ id: 0, value: 0 }, { id: 1, value: 4 }] },
+    { id: 1, value: [{ id: 0, value: 2 }, { id: 1, value: 3 }] },
+  ]
+
+  expect(game.move(board, head, 'up', 3)).toEqual(expected)
 })
