@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import injectSheet from 'react-jss'
+import pure from 'recompose/pure'
 
 const styles = {
   emptyCell: {
@@ -14,6 +15,7 @@ const styles = {
 styles.filledCell = Object.assign({}, styles.emptyCell, { background: 'black', border: '1px solid black' })
 
 const Cell = ({ classes, value }) => {
+  console.log('cell calc')
   return (
     value === 0 ? <div className={classes.emptyCell} /> : <div className={classes.filledCell} />
   )
@@ -24,4 +26,4 @@ Cell.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-export default injectSheet(styles)(Cell)
+export default pure(injectSheet(styles)(Cell))

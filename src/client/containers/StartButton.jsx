@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 
 import { start, tick } from '../actions'
 import Button from '../components/Button'
-import TICK_LENGTH from '../constants/board'
+import { TICK_LENGTH } from '../constants/board'
 
 const mapStateToProps = (state) => {
   return {
