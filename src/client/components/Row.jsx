@@ -13,17 +13,17 @@ const styles = {
   },
 }
 
-const Row = ({ classes, value }) => {
+const Row = ({ classes, row }) => {
   return (
     <li className={classes.row}>
-      { value.map((cell) => {
+      { row.map((cell) => {
         return <Cell key={cell.id} value={cell.value} />
       }) }
     </li>)
 }
 
 Row.propTypes = {
-  value: PropTypes.array.isRequired,
+  row: PropTypes.array.isRequired,
   classes: PropTypes.object.isRequired,
 }
 

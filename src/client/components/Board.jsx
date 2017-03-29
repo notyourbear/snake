@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import injectSheet from 'react-jss'
 
-import Row from './Row'
+import GameRow from '../containers/GameRow'
 
 const styles = {
   board: {
@@ -15,7 +15,7 @@ const Board = ({ classes, board, handleKeystroke }) => {
   return (
     <ul tabIndex={0} onKeyDown={handleKeystroke} className={classes.board}>
       { board.map((row) => {
-        return <Row key={row.id} value={row.value} />
+        return <GameRow key={row.id} id={row.id} />
       }) }
     </ul>
   )
