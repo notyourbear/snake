@@ -18,7 +18,7 @@ const styles = {
 
 const Board = ({ classes, board }) => {
   const rows = board.map((row) => {
-    const cells = row.map((cell) => {
+    const cells = row.value.map((cell) => {
       return <Cell key={cell.key} value={cell.value} />
     })
     return <div key={row.key} className={classes.row}>{cells}</div>
