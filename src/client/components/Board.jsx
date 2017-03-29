@@ -7,6 +7,7 @@ const styles = {
   board: {
     margin: '0 auto',
     width: '40%',
+    listStyle: 'none',
   },
   row: {
     background: 'white',
@@ -16,20 +17,21 @@ const styles = {
   },
 }
 
-const Board = ({ classes, board }) => {
+const Board = ({ classes, board, handleKeystroke }) => {
   const rows = board.map((row) => {
     const cells = row.value.map((cell) => {
-      return <Cell key={cell.key} value={cell.value} />
+      return <Cell key={cell.id} value={cell.value} />
     })
-    return <div key={row.key} className={classes.row}>{cells}</div>
+    return <li key={row.id} className={classes.row}>{cells}</li>
   })
 
-  return <div className={classes.board}> { rows } </div>
+  return <ul tabIndex={0} onKeyDown={handleKeystroke} className={classes.board}> { rows } </ul>
 }
 
 Board.propTypes = {
   board: PropTypes.array.isRequired,
   classes: PropTypes.object.isRequired,
+  handleKeystroke: PropTypes.func.isRequired,
 }
 
 export default injectSheet(styles)(Board)

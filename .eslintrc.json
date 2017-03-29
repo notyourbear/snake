@@ -6,7 +6,8 @@
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "arrow-body-style": ["off"],
     "max-len": ["error", 120],
-    "react/forbid-prop-types": ["off"]
+    "react/forbid-prop-types": ["off"],
+    "jsx-a11y/no-static-element-interactions": ["off"]
   },
   "env": {
     "browser": true,

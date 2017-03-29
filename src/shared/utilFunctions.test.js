@@ -1,4 +1,4 @@
-import { selectRandom, findAvailableSpaces, findNextHeadLocation } from './utilFunctions'
+import { keyCodeToDirection, selectRandom, findAvailableSpaces, findNextHeadLocation } from './utilFunctions'
 
 test('selectRandom', () => {
   const options = [2, 1, 3, 4]
@@ -21,4 +21,19 @@ test('findNextHeadLocation', () => {
   expect(findNextHeadLocation(dimensions, head, 'right')).toEqual([0, 1])
   expect(findNextHeadLocation(dimensions, head, 'up')).toEqual([3, 0])
   expect(findNextHeadLocation(dimensions, head, 'down')).toEqual([1, 0])
+})
+
+test('keyCodeToDirection', () => {
+  const keyCodes = [
+    { val: 'left', key: 37 },
+    { val: 'right', key: 39 },
+    { val: 'up', key: 38 },
+    { val: 'down', key: 40 },
+    { val: 41, key: 41 },
+  ]
+  const check = keyCodes.reduce((bool, code) => {
+    if (!bool) return bool
+    return keyCodeToDirection(code.key) === code.val
+  }, true)
+  expect(check).toBe(true)
 })

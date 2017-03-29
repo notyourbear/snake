@@ -20,7 +20,7 @@ const Cell = ({ classes, value }) => {
 }
 
 Cell.propTypes = {
-  value: PropTypes.array.isRequired,
+  value: PropTypes.number.isRequired,
   classes: PropTypes.object.isRequired,
 }
 

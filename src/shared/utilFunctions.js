@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/prefer-default-export
 import { BOARD_DIMENSIONS } from '../client/constants/board'
+import * as keyCodes from '../client/constants/keys'
 
 export const selectRandom = (array) => {
   const length = array.length
@@ -28,4 +29,12 @@ export const findNextHeadLocation = (dimensions = BOARD_DIMENSIONS, locationOfHe
   if (direction === 'left') col = col === 0 ? width - 1 : col - 1
   if (direction === 'right') col = col === width - 1 ? 0 : col + 1
   return [row, col]
+}
+
+export const keyCodeToDirection = (keyCode) => {
+  if (keyCode === keyCodes.LEFT) return 'left'
+  if (keyCode === keyCodes.RIGHT) return 'right'
+  if (keyCode === keyCodes.UP) return 'up'
+  if (keyCode === keyCodes.DOWN) return 'down'
+  return keyCode
 }
