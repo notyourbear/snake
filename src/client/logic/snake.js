@@ -1,17 +1,39 @@
-import { CRUMPET, GAME_HEIGHT, GAME_WIDTH } from '../constants/board'
-import { selectRandom, findAvailableSpaces } from '../../shared/utilFunctions'
+import { CRUMPET, GAME_HEIGHT, GAME_WIDTH, INIT_HEAD, INIT_LENGTH } from '../constants/board'
+import { selectRandom, findAvailableSpaces, findNextHeadLocation } from '../../shared/utilFunctions'
 
 const Snake = () => {
-  const makeBoard = (height = GAME_HEIGHT, width = GAME_WIDTH) => {
+  const makeBoard = (height = GAME_HEIGHT, width = GAME_WIDTH, headLocation = INIT_HEAD, snakeLength = INIT_LENGTH) => {
     const board = []
     const row = []
+    const [rIndex, cIndex] = headLocation
+
     for (let i = 0; i < width; i++) {
       row.push(0)
     }
     for (let i = 0; i < height; i++) {
       board.push(row)
     }
-    return board
+
+    return board.map((r, i) => {
+      if (i !== rIndex) return r
+      return r.map((cell, y) => {
+        if (y !== cIndex) return cell
+        return snakeLength
+      })
+    })
+  }
+
+  const move = (board, headLocation, direction, snakeLength) => {
+    const boardDimensions = [board.length, board[0].length]
+    const [rowIndex, cellIndex] = findNextHeadLocation(boardDimensions, headLocation, direction)
+
+    return board.map((row, i) => {
+      if (i !== rowIndex) return row
+      return row.map((cell, y) => {
+        if (y !== cellIndex) return cell
+        return snakeLength + 1
+      })
+    })
   }
 
   const tick = (board) => {
@@ -39,6 +61,7 @@ const Snake = () => {
     makeBoard,
     tick,
     addCrumpet,
+    move,
   }
 }
 
