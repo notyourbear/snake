@@ -35,7 +35,8 @@ const Snake = () => {
       if (i !== rowIndex) return row
       const value = row.value.map((cell, y) => {
         if (y !== cellIndex) return cell
-        return Object.assign({}, cell, { value: snakeLength + 1 })
+        const val = board[i].value[y].value === CRUMPET ? snakeLength + 2 : snakeLength + 1
+        return Object.assign({}, cell, { value: val })
       })
       return Object.assign({}, row, { value })
     })

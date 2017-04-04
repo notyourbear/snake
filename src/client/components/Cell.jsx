@@ -2,6 +2,8 @@ import React, { PropTypes } from 'react'
 import injectSheet from 'react-jss'
 import pure from 'recompose/pure'
 
+import { CRUMPET } from '../constants/board'
+
 const styles = {
   emptyCell: {
     width: '10px',
@@ -11,14 +13,14 @@ const styles = {
     display: 'inline-block',
   },
 }
-
-styles.filledCell = Object.assign({}, styles.emptyCell, { background: 'black', border: '1px solid black' })
+styles.crumpetCell = Object.assign({}, styles.emptyCell, { background: 'grey', border: '1px solid grey' })
+styles.snakeCell = Object.assign({}, styles.emptyCell, { background: 'black', border: '1px solid black' })
 
 const Cell = ({ classes, value }) => {
   console.log('cell calc')
-  return (
-    value === 0 ? <div className={classes.emptyCell} /> : <div className={classes.filledCell} />
-  )
+  if (value === 0) return <div className={classes.emptyCell} />
+  if (value === CRUMPET) return <div className={classes.crumpetCell} />
+  return <div className={classes.snakeCell} />
 }
 
 Cell.propTypes = {

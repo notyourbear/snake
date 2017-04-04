@@ -17,9 +17,12 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case TICK: {
       let board = game.move(state.board, state.head, state.direction, state.length)
+      if (Math.random() < 0.1) board = game.addCrumpet(board)
+      const [row, col] = findNextHeadLocation([board.length, board[0].value.length], state.head, state.direction)
+      const length = board[row].value[col].value - 1
       board = game.tick(board)
-      const head = findNextHeadLocation([board.length, board[0].value.length], state.head, state.direction)
-      return Object.assign({}, state, { board, head })
+
+      return Object.assign({}, state, { board, head: [row, col], length })
     }
     case CHANGE_DIRECTION: {
       if (!validDirectionChange(action.payload, state.direction)) return state
