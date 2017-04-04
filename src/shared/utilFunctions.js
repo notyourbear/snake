@@ -37,3 +37,14 @@ export const keyCodeToDirection = (keyCode) => {
   if (keyCode === keyCodes.DOWN) return 'down'
   return keyCode
 }
+
+export const validDirectionChange = (keyCode, currentDirection) => {
+  switch (true) {
+    case keyCodeToDirection(keyCode) === 'left' && currentDirection === 'right':
+    case keyCodeToDirection(keyCode) === 'down' && currentDirection === 'up':
+    case keyCodeToDirection(keyCode) === 'right' && currentDirection === 'left':
+    case keyCodeToDirection(keyCode) === 'up' && currentDirection === 'down':
+      return false
+    default: return true
+  }
+}

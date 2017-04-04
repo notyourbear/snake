@@ -8,12 +8,13 @@ import { createStore, combineReducers } from 'redux'
 import { BrowserRouter } from 'react-router-dom'
 
 import App from './app'
-import game from './reducers'
+import game from './gameReducers'
+import interval from './intervalReducers'
 
 import { APP_CONTAINER_SELECTOR } from '../shared/config'
 import { isProd } from '../shared/util'
 
-const store = createStore(combineReducers({ game }),
+const store = createStore(combineReducers({ game, interval }),
   // eslint-disable-next-line no-underscore-dangle
   isProd ? undefined : window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 

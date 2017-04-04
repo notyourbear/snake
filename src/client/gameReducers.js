@@ -1,32 +1,28 @@
 import Snake from './logic/snake'
-import { INIT_DIRECTION, INIT_HEAD, INIT_LENGTH } from './constants/board'
-import { TICK, CHANGE_DIRECTION, START } from './actions'
-import { findNextHeadLocation, keyCodeToDirection } from '../shared/utilFunctions'
+import { INIT_HEAD, INIT_LENGTH, INIT_DIRECTION } from './constants/board'
+import { TICK, CHANGE_DIRECTION } from './actions'
+import { keyCodeToDirection, findNextHeadLocation, validDirectionChange } from '../shared/utilFunctions'
 import * as keyCodes from './constants/keys'
 
 const game = Snake()
 
 const initialState = {
   board: game.addSnakeHead(game.makeBoard()),
-  direction: INIT_DIRECTION,
   head: INIT_HEAD,
   length: INIT_LENGTH,
-  intervalId: null,
+  direction: INIT_DIRECTION,
 }
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case START: {
-      return Object.assign({}, state, { intervalId: action.payload })
-    }
     case TICK: {
       let board = game.move(state.board, state.head, state.direction, state.length)
       board = game.tick(board)
       const head = findNextHeadLocation([board.length, board[0].value.length], state.head, state.direction)
-
       return Object.assign({}, state, { board, head })
     }
     case CHANGE_DIRECTION: {
+      if (!validDirectionChange(action.payload, state.direction)) return state
       switch (action.payload) {
         case keyCodes.LEFT:
         case keyCodes.RIGHT:

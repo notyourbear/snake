@@ -7,7 +7,7 @@ import { TICK_LENGTH } from '../constants/board'
 const mapStateToProps = (state) => {
   return {
     label: 'Start',
-    intervalId: state.game.intervalId,
+    intervalId: state.interval,
   }
 }
 
