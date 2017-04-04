@@ -14,7 +14,7 @@ const styles = {
 const Board = ({ classes, board, handleKeystroke, gameover, intervalId }) => {
   if (gameover) clearInterval(intervalId)
   return (
-    <ul tabIndex={0} onKeyDown={handleKeystroke} className={classes.board}>
+    <ul autoFocus tabIndex={0} onKeyDown={handleKeystroke} className={classes.board}>
       { board.map((row) => {
         return <GameRow key={row.id} id={row.id} />
       }) }
