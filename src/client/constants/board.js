@@ -4,4 +4,4 @@ export const CRUMPET = '*'
 export const INIT_DIRECTION = 'left'
 export const INIT_HEAD = [4, 10]
 export const INIT_LENGTH = 3
-export const TICK_LENGTH = 500
+export const TICK_LENGTH = 250

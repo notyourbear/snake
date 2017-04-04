@@ -53,3 +53,17 @@ test('Snake.move', () => {
 
   expect(game.move(board, head, 'up', 3)).toEqual(expected)
 })
+
+test('Snake.cellValue', () => {
+  const test = [{ head: [0, 0], expected: 'crumpet' }, { head: [1, 1], expected: 'empty' }, { head: [0, 1], expected: 'snake' }]
+  const tboard = [
+    { id: 0, value: [{ id: 0, value: CRUMPET }, { id: 1, value: 1 }] },
+    { id: 1, value: [{ id: 0, value: 2 }, { id: 1, value: 0 }] },
+  ]
+  const correct = test.reduce((bool, t) => {
+    if (!bool) return bool
+    return game.cellValue(tboard, t.head) === t.expected
+  }, true)
+
+  expect(correct).toBe(true)
+})

@@ -11,7 +11,8 @@ const styles = {
   },
 }
 
-const Board = ({ classes, board, handleKeystroke }) => {
+const Board = ({ classes, board, handleKeystroke, gameover, intervalId }) => {
+  if (gameover) clearInterval(intervalId)
   return (
     <ul tabIndex={0} onKeyDown={handleKeystroke} className={classes.board}>
       { board.map((row) => {
@@ -23,6 +24,8 @@ const Board = ({ classes, board, handleKeystroke }) => {
 
 Board.propTypes = {
   board: PropTypes.array.isRequired,
+  intervalId: PropTypes.number.isRequired,
+  gameover: PropTypes.bool.isRequired,
   classes: PropTypes.object.isRequired,
   handleKeystroke: PropTypes.func.isRequired,
 }

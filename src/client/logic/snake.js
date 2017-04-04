@@ -16,6 +16,17 @@ const Snake = () => {
     return board
   }
 
+  const cellValue = (board, headLocation) => {
+    const [row, col] = headLocation
+    const val = board[row].value[col].value
+    switch (val) {
+      case CRUMPET: return 'crumpet'
+      case 0: return 'empty'
+      default: return 'snake'
+    }
+  }
+
+
   const addSnakeHead = (board, headLocation = INIT_HEAD, snakeLength = INIT_LENGTH) => {
     const [rIndex, cIndex] = headLocation
     return board.map((row, i) => {
@@ -35,7 +46,7 @@ const Snake = () => {
       if (i !== rowIndex) return row
       const value = row.value.map((cell, y) => {
         if (y !== cellIndex) return cell
-        const val = board[i].value[y].value === CRUMPET ? snakeLength + 2 : snakeLength + 1
+        const val = cellValue(board, [rowIndex, cellIndex]) === 'crumpet' ? snakeLength + 2 : snakeLength + 1
         return Object.assign({}, cell, { value: val })
       })
       return Object.assign({}, row, { value })
@@ -72,6 +83,7 @@ const Snake = () => {
     addCrumpet,
     move,
     addSnakeHead,
+    cellValue,
   }
 }
 

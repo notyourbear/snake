@@ -11,6 +11,7 @@ const initialState = {
   head: INIT_HEAD,
   length: INIT_LENGTH,
   direction: INIT_DIRECTION,
+  gameover: false,
 }
 
 const reducer = (state = initialState, action) => {
@@ -20,9 +21,11 @@ const reducer = (state = initialState, action) => {
       if (Math.random() < 0.1) board = game.addCrumpet(board)
       const [row, col] = findNextHeadLocation([board.length, board[0].value.length], state.head, state.direction)
       const length = board[row].value[col].value - 1
+      const gameover = game.cellValue(state.board, [row, col]) === 'snake' ? true : state.gameover
       board = game.tick(board)
+      if (gameover) board = state.board
 
-      return Object.assign({}, state, { board, head: [row, col], length })
+      return Object.assign({}, state, { board, head: [row, col], length, gameover })
     }
     case CHANGE_DIRECTION: {
       if (!validDirectionChange(action.payload, state.direction)) return state
