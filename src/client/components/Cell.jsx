@@ -6,8 +6,8 @@ import { CRUMPET } from '../constants/board'
 
 const styles = {
   emptyCell: {
-    width: '10px',
-    height: '10px',
+    width: '14px',
+    height: '14px',
     border: '1px solid #d3d3d3',
     background: 'white',
     display: 'inline-block',

@@ -7,6 +7,7 @@ const renderApp = title =>
       <head>
         <title>${title}</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
         <link rel="stylesheet" href="${STATIC_PATH}/css/style.css">
       </head>
       <body>
