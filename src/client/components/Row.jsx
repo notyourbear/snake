@@ -2,11 +2,12 @@ import React, { PropTypes } from 'react'
 import injectSheet from 'react-jss'
 import pure from 'recompose/pure'
 
+import * as colors from '../../shared/colors'
 import Cell from './Cell'
 
 const styles = {
   row: {
-    background: 'white',
+    background: `${colors.BACKGROUND}`,
     margin: 0,
     padding: 0,
     height: '16px',

@@ -1,80 +1,70 @@
 import { CRUMPET, BOARD_DIMENSIONS, INIT_HEAD, INIT_LENGTH } from '../constants/board'
 import { selectRandom, findAvailableSpaces, findNextHeadLocation } from '../../shared/utilFunctions'
+import CellFactory from './cell'
+
+const Cell = CellFactory()
 
 const Snake = () => {
   const makeBoard = (dimensions = BOARD_DIMENSIONS) => {
-    const board = []
-    const row = []
+    const board = {}
     const [height, width] = dimensions
 
-    for (let i = 0; i < width; i++) {
-      row.push({ id: i, value: 0 })
-    }
     for (let i = 0; i < height; i++) {
-      board.push({ id: i, value: row })
+      for (let y = 0; y < width; y++) {
+        const id = Cell.createId(i, y)
+        board[id] = Cell.make(id, [i, y])
+      }
     }
     return board
   }
 
-  const cellValue = (board, headLocation) => {
-    const [row, col] = headLocation
-    const val = board[row].value[col].value
-    switch (val) {
-      case CRUMPET: return 'crumpet'
-      case 0: return 'empty'
-      default: return 'snake'
-    }
-  }
-
-
   const addSnakeHead = (board, headLocation = INIT_HEAD, snakeLength = INIT_LENGTH) => {
     const [rIndex, cIndex] = headLocation
-    return board.map((row, i) => {
-      if (i !== rIndex) return row
-      const value = row.value.map((cell, y) => {
-        if (y !== cIndex) return cell
-        return Object.assign({}, cell, { value: snakeLength })
-      })
-      return Object.assign({}, row, { value })
-    })
+    const id = Cell.createId(rIndex, cIndex)
+    const snakehead = Cell.make(id, headLocation, 'snake', snakeLength)
+    const newBoard = Object.assign({}, board)
+    newBoard[id] = snakehead
+
+    return newBoard
   }
 
   const move = (board, headLocation, direction, snakeLength) => {
-    const boardDimensions = [board.length, board[0].value.length]
-    const [rowIndex, cellIndex] = findNextHeadLocation(boardDimensions, headLocation, direction)
-    return board.map((row, i) => {
-      if (i !== rowIndex) return row
-      const value = row.value.map((cell, y) => {
-        if (y !== cellIndex) return cell
-        const val = cellValue(board, [rowIndex, cellIndex]) === 'crumpet' ? snakeLength + 2 : snakeLength + 1
-        return Object.assign({}, cell, { value: val })
-      })
-      return Object.assign({}, row, { value })
-    })
+    const nextHead = findNextHeadLocation(headLocation, direction)
+    const value = board[nextHead.id].type === CRUMPET ? snakeLength + 2 : snakeLength + 1
+    const cell = Cell.make(nextHead.id, nextHead.location, 'snake', value)
+    const newBoard = Object.assign({}, board)
+    newBoard[nextHead.id] = cell
+
+    return newBoard
   }
 
   const tick = (board) => {
-    return board.map((row) => {
-      const value = row.value.map((cell) => {
-        if (cell.value === CRUMPET) return cell
-        if (cell.value <= 1) return Object.assign({}, cell, { value: 0 })
-        return Object.assign({}, cell, { value: cell.value - 1 })
-      })
-      return Object.assign({}, row, { value })
+    const values = Object.values(board)
+    const newBoard = Object.assign({}, board)
+    values.forEach((cell) => {
+      const value = cell.value <= 1 ? 0 : cell.value - 1
+      const type = cell.type === 'snake' && value === 0 ? 'empty' : cell.type
+      const newCell = Cell.make(cell.id, cell.location, type, value)
+      newBoard[cell.id] = Object.assign(newCell)
     })
+
+    return Object.assign({}, newBoard)
   }
 
   const addCrumpet = (board) => {
     const availableSpaces = findAvailableSpaces(board)
-    const [rowIndex, cellIndex] = selectRandom(availableSpaces)
+    const [rowIndex, colIndex] = selectRandom(availableSpaces)
+    const id = Cell.createId(rowIndex, colIndex)
+    const cell = Cell.make(id, [rowIndex, colIndex], CRUMPET, CRUMPET)
+    const newBoard = Object.assign({}, board)
+    newBoard[id] = cell
 
-    return board.map((row, i) => {
-      if (i !== rowIndex) return row
-      const value = row.value.map((cell, y) => {
-        return (y !== cellIndex) ? cell : Object.assign({}, cell, { value: CRUMPET })
-      })
-      return Object.assign({}, row, { value })
-    })
+    return newBoard
+  }
+
+  const getCellType = (board, cellLocation) => {
+    const [rowIndex, colIndex] = cellLocation
+    return board[rowIndex].value[colIndex].type
   }
 
   return {
@@ -83,7 +73,7 @@ const Snake = () => {
     addCrumpet,
     move,
     addSnakeHead,
-    cellValue,
+    getCellType,
   }
 }
 

@@ -1,6 +1,9 @@
 // eslint-disable-next-line import/prefer-default-export
 import { BOARD_DIMENSIONS } from '../client/constants/board'
 import * as keyCodes from '../client/constants/keys'
+import CellFactory from '../client/logic/cell'
+
+const Cell = CellFactory()
 
 export const selectRandom = (array) => {
   const length = array.length
@@ -9,25 +12,20 @@ export const selectRandom = (array) => {
 }
 
 export const findAvailableSpaces = (board) => {
-  return board.reduce((empties, row, rowIndex) => {
-    const cells = row.value.reduce((emptyCells, cell, cellIndex) => {
-      return cell.value === 0 ? emptyCells.concat(cellIndex) : emptyCells
-    }, [])
-
-    return empties.concat(cells.map((cellIndex) => {
-      return [rowIndex, cellIndex]
-    }))
+  const values = Object.values(board)
+  return values.reduce((empties, cell) => {
+    return cell.type === 'empty' ? empties.concat([cell.location]) : empties
   }, [])
 }
 
-export const findNextHeadLocation = (dimensions = BOARD_DIMENSIONS, locationOfHead, direction) => {
+export const findNextHeadLocation = (locationOfHead, direction, dimensions = BOARD_DIMENSIONS) => {
   const [height, width] = dimensions
   let [row, col] = locationOfHead
   if (direction === 'up') row = row === 0 ? height - 1 : row - 1
   if (direction === 'down') row = row === height - 1 ? 0 : row + 1
   if (direction === 'left') col = col === 0 ? width - 1 : col - 1
   if (direction === 'right') col = col === width - 1 ? 0 : col + 1
-  return [row, col]
+  return { id: Cell.createId(row, col), location: [row, col] }
 }
 
 export const keyCodeToDirection = (keyCode) => {

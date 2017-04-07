@@ -1,69 +1,49 @@
 /* eslint max-len: "off" */
 import Snake from './snake'
 import { CRUMPET } from '../constants/board'
+import CellFactory from './cell'
+import makeTestBoard from '../../shared/testFunctions'
 
+const Cell = CellFactory()
 const game = Snake()
-const board = [
-  { id: 0, value: [{ id: 0, value: 0 }, { id: 1, value: 0 }] },
-  { id: 1, value: [{ id: 0, value: 2 }, { id: 1, value: 3 }] },
-]
+
+const board = game.makeBoard([2, 2])
 
 test('Snake.makeBoard', () => {
-  const expected = [
-    { id: 0, value: [{ id: 0, value: 0 }, { id: 1, value: 0 }] },
-    { id: 1, value: [{ id: 0, value: 0 }, { id: 1, value: 0 }] },
-  ]
+  const expected = makeTestBoard([])
   expect(game.makeBoard([2, 2])).toEqual(expected)
 })
 
 test('Snake.addSnakeHead', () => {
-  const expected = [
-    { id: 0, value: [{ id: 0, value: 3 }, { id: 1, value: 0 }] },
-    { id: 1, value: [{ id: 0, value: 2 }, { id: 1, value: 3 }] },
-  ]
+  const head = Cell.make(Cell.createId(0, 0), [0, 0], 'snake', 3)
+  const expected = makeTestBoard([head])
   expect(game.addSnakeHead(board, [0, 0], 3)).toEqual(expected)
 })
 
 test('Snake.tick', () => {
-  const expected = [
-    { id: 0, value: [{ id: 0, value: 0 }, { id: 1, value: 0 }] },
-    { id: 1, value: [{ id: 0, value: 1 }, { id: 1, value: 2 }] },
-  ]
-  expect(game.tick(board)).toEqual(expected)
+  const one = Cell.make(Cell.createId(0, 0), [0, 0], 'snake', 3)
+  const two = Cell.make(Cell.createId(0, 0), [0, 0], 'snake', 2)
+  const expected = makeTestBoard([two])
+
+  expect(game.tick(makeTestBoard([one]))).toEqual(expected)
 })
 
 test('Snake.addCrumpet', () => {
-  const tboard = [
-    { id: 0, value: [{ id: 0, value: 0 }, { id: 1, value: 1 }] },
-    { id: 1, value: [{ id: 0, value: 2 }, { id: 1, value: 3 }] },
-  ]
-  const expected = [
-    { id: 0, value: [{ id: 0, value: CRUMPET }, { id: 1, value: 1 }] },
-    { id: 1, value: [{ id: 0, value: 2 }, { id: 1, value: 3 }] },
-  ]
+  const crumpet = Cell.make(Cell.createId(0, 0), [0, 0], CRUMPET, CRUMPET)
+  const crumpet2 = Cell.make(Cell.createId(1, 1), [1, 1], CRUMPET, CRUMPET)
+  const one = Cell.make(Cell.createId(0, 1), [0, 1], 'snake', 3)
+  const two = Cell.make(Cell.createId(1, 0), [1, 0], 'snake', 2)
+  const expected = makeTestBoard([crumpet, one, two, crumpet2])
+
+  const tboard = makeTestBoard([crumpet, one, two])
+
   expect(game.addCrumpet(tboard)).toEqual(expected)
 })
 
 test('Snake.move', () => {
-  const head = [1, 1]
-  const expected = [
-    { id: 0, value: [{ id: 0, value: 0 }, { id: 1, value: 4 }] },
-    { id: 1, value: [{ id: 0, value: 2 }, { id: 1, value: 3 }] },
-  ]
+  const before = Cell.make(Cell.createId(0, 1), [0, 1], 'snake', 3)
+  const after = Cell.make(Cell.createId(0, 0), [0, 0], 'snake', 4)
+  const expected = makeTestBoard([after, before])
 
-  expect(game.move(board, head, 'up', 3)).toEqual(expected)
-})
-
-test('Snake.cellValue', () => {
-  const test = [{ head: [0, 0], expected: 'crumpet' }, { head: [1, 1], expected: 'empty' }, { head: [0, 1], expected: 'snake' }]
-  const tboard = [
-    { id: 0, value: [{ id: 0, value: CRUMPET }, { id: 1, value: 1 }] },
-    { id: 1, value: [{ id: 0, value: 2 }, { id: 1, value: 0 }] },
-  ]
-  const correct = test.reduce((bool, t) => {
-    if (!bool) return bool
-    return game.cellValue(tboard, t.head) === t.expected
-  }, true)
-
-  expect(correct).toBe(true)
+  expect(game.move(makeTestBoard([before]), [0, 1], 'left', 3)).toEqual(expected)
 })

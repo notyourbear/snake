@@ -21,7 +21,7 @@ const reducer = (state = initialState, action) => {
       if (Math.random() < 0.1) board = game.addCrumpet(board)
       const [row, col] = findNextHeadLocation([board.length, board[0].value.length], state.head, state.direction)
       const length = board[row].value[col].value - 1
-      const gameover = game.cellValue(state.board, [row, col]) === 'snake' ? true : state.gameover
+      const gameover = game.getCellType(state.board, [row, col]) !== 'playable' ? true : state.gameover
       board = game.tick(board)
       if (gameover) board = state.board
 
