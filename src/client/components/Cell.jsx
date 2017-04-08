@@ -17,14 +17,14 @@ const styles = {
 styles.crumpetCell = Object.assign({}, styles.emptyCell, { background: `${colors.CRUMPET}` })
 styles.snakeCell = Object.assign({}, styles.emptyCell, { background: `${colors.SNAKE}` })
 
-const Cell = ({ classes, value }) => {
-  if (value === 0) return <div className={classes.emptyCell} />
-  if (value === CRUMPET) return <div className={classes.crumpetCell} />
+const Cell = ({ classes, type }) => {
+  if (type === 'empty') return <div className={classes.emptyCell} />
+  if (type === CRUMPET) return <div className={classes.crumpetCell} />
   return <div className={classes.snakeCell} />
 }
 
 Cell.propTypes = {
-  value: PropTypes.number.isRequired,
+  type: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
 }
 

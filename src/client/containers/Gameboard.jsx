@@ -3,15 +3,15 @@ import { connect } from 'react-redux'
 import { changeDirection, start, tick } from '../actions'
 import Board from '../components/Board'
 import { SPACE } from '../constants/keys'
-import { TICK_LENGTH } from '../constants/board'
+import { TICK_LENGTH, BOARD_DIMENSIONS } from '../constants/board'
 
-const boardSelector = state => state.game.board
 const gameoverSelector = state => state.game.gameover
 const intervalIdSelector = state => state.interval
 
 const mapStateToProps = (state) => {
+  console.log('board', state)
   return {
-    board: boardSelector(state),
+    height: BOARD_DIMENSIONS[0],
     gameover: gameoverSelector(state),
     intervalId: intervalIdSelector(state),
   }

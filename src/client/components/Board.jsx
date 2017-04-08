@@ -16,13 +16,18 @@ const styles = {
   },
 }
 
-const Board = ({ classes, board, handleKeystroke, gameover, intervalId }) => {
+const Board = ({ classes, height, handleKeystroke, gameover, intervalId }) => {
+  const rowIds = []
+  for (let i = 0; i < height; i++) {
+    rowIds.push(i)
+  }
+
   if (gameover) clearInterval(intervalId)
   return (
     <div className="eight columns">
       <ul autoFocus tabIndex={0} onKeyDown={handleKeystroke} className={classes.board}>
-        { board.map((row) => {
-          return <GameRow key={row.id} id={row.id} />
+        { rowIds.map((id) => {
+          return <GameRow key={id} id={id} />
         }) }
       </ul>
     </div>
@@ -30,7 +35,7 @@ const Board = ({ classes, board, handleKeystroke, gameover, intervalId }) => {
 }
 
 Board.propTypes = {
-  board: PropTypes.array.isRequired,
+  height: PropTypes.number.isRequired,
   intervalId: PropTypes.oneOfType([PropTypes.number, PropTypes.object]).isRequired,
   gameover: PropTypes.bool.isRequired,
   classes: PropTypes.object.isRequired,

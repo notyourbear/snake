@@ -4,10 +4,17 @@ import { createSelector } from 'reselect'
 import Row from '../components/Row'
 
 const rowSelector = (state, props) => {
-  return state.game.board[props.id]
+  const cells = Object.values(state.game.board)
+  return cells.filter((cell) => {
+    return cell.id[0] === props.id.toString()
+  })
 }
 
-const filteredRowSelector = createSelector(rowSelector, row => row.value)
+const filteredRowSelector = createSelector(rowSelector, (row) => {
+  return row.reduce((acc, cell) => {
+    return acc.concat({ id: cell.id, type: cell.type })
+  }, [])
+})
 
 const mapStateToProps = (state, props) => {
   return {

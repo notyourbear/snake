@@ -15,10 +15,11 @@ const styles = {
 }
 
 const Row = ({ classes, row }) => {
+  console.log('row', row)
   return (
     <li className={classes.row}>
       { row.map((cell) => {
-        return <Cell key={cell.id} value={cell.value} />
+        return <Cell key={cell.id} type={cell.type} />
       }) }
     </li>)
 }
