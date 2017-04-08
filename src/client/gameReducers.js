@@ -4,10 +4,10 @@ import { TICK, CHANGE_DIRECTION } from './actions'
 import { keyCodeToDirection, findNextHeadLocation, validDirectionChange } from '../shared/utilFunctions'
 import * as keyCodes from './constants/keys'
 
-const game = Snake()
+const Game = Snake()
 
 const initialState = {
-  board: game.addSnakeHead(game.makeBoard()),
+  board: Game.addSnakeHead(Game.makeBoard()),
   head: INIT_HEAD,
   length: INIT_LENGTH,
   direction: INIT_DIRECTION,
@@ -17,15 +17,16 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case TICK: {
-      let board = game.move(state.board, state.head, state.direction, state.length)
-      if (Math.random() < 0.1) board = game.addCrumpet(board)
-      const [row, col] = findNextHeadLocation([board.length, board[0].value.length], state.head, state.direction)
-      const length = board[row].value[col].value - 1
-      const gameover = game.getCellType(state.board, [row, col]) !== 'playable' ? true : state.gameover
-      board = game.tick(board)
+      let board = Game.move(state.board, state.head, state.direction, state.length)
+      if (Math.random() < 0.1) board = Game.addCrumpet(board)
+      const nextHead = findNextHeadLocation(state.head, state.direction)
+      const length = board[nextHead.id].value - 1
+      const nextHeadCellType = board[nextHead.id].type
+      const gameover = nextHeadCellType === 'snake' ? true : state.gameover
+      board = Game.tick(board)
       if (gameover) board = state.board
 
-      return Object.assign({}, state, { board, head: [row, col], length, gameover })
+      return Object.assign({}, state, { board, head: nextHead.location, length, gameover })
     }
     case CHANGE_DIRECTION: {
       if (!validDirectionChange(action.payload, state.direction)) return state

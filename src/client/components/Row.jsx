@@ -15,7 +15,7 @@ const styles = {
 }
 
 const Row = ({ classes, row }) => {
-  console.log('row', row)
+  console.log('makeboard')
   return (
     <li className={classes.row}>
       { row.map((cell) => {

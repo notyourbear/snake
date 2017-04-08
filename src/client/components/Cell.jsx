@@ -18,6 +18,7 @@ styles.crumpetCell = Object.assign({}, styles.emptyCell, { background: `${colors
 styles.snakeCell = Object.assign({}, styles.emptyCell, { background: `${colors.SNAKE}` })
 
 const Cell = ({ classes, type }) => {
+  console.log('makecell')
   if (type === 'empty') return <div className={classes.emptyCell} />
   if (type === CRUMPET) return <div className={classes.crumpetCell} />
   return <div className={classes.snakeCell} />

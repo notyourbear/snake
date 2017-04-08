@@ -9,7 +9,6 @@ const gameoverSelector = state => state.game.gameover
 const intervalIdSelector = state => state.interval
 
 const mapStateToProps = (state) => {
-  console.log('board', state)
   return {
     height: BOARD_DIMENSIONS[0],
     gameover: gameoverSelector(state),
