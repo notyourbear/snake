@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/prefer-default-export
-export const BOARD_DIMENSIONS = [10, 30]
+export const BOARD_DIMENSIONS = [20, 35]
 export const CRUMPET = '*'
 export const INIT_DIRECTION = 'left'
 export const INIT_HEAD = [4, 5]

@@ -6,7 +6,7 @@ import Row from '../components/Row'
 const rowSelector = (state, props) => {
   const cells = Object.values(state.game.board)
   return cells.filter((cell) => {
-    return cell.id[0] === props.id.toString()
+    return cell.location[0] === props.id
   })
 }
 
