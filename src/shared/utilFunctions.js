@@ -31,7 +31,7 @@ export const findAvailableSpaces = (board, type = 'single', dimensions = BOARD_D
               return { isAvailable, locations }
             }, { locations: [], isAvailable: true })
 
-            return !available.isAvailable ? empties : empties.concat(available.locations)
+            return !available.isAvailable ? empties : empties.concat([available.locations])
           }
         }
       }, [])

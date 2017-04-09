@@ -15,7 +15,7 @@ test('findAvailableSpaces', () => {
   const board = makeTestBoard([cell])
   const largerBoard = makeTestBoard([], [3, 3])
   expect(util.findAvailableSpaces(board)).toEqual([[0, 1], [1, 0], [1, 1]])
-  expect(util.findAvailableSpaces(largerBoard, 'star', [3, 3])).toEqual([[0, 1], [1, 0], [1, 1], [1, 2], [2, 1]])
+  expect(util.findAvailableSpaces(largerBoard, 'star', [3, 3])).toEqual([[[0, 1], [1, 0], [1, 1], [1, 2], [2, 1]]])
 })
 
 test('findNextHeadLocation', () => {

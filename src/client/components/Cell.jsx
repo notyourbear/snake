@@ -3,7 +3,7 @@ import injectSheet from 'react-jss'
 import pure from 'recompose/pure'
 import * as colors from '../../shared/colors'
 
-import { CRUMPET } from '../constants/board'
+import { CRUMPET, BARRIER } from '../constants/board'
 
 const styles = {
   emptyCell: {
@@ -16,11 +16,12 @@ const styles = {
 }
 styles.crumpetCell = Object.assign({}, styles.emptyCell, { background: `${colors.CRUMPET}` })
 styles.snakeCell = Object.assign({}, styles.emptyCell, { background: `${colors.SNAKE}` })
+styles.barrierCell = Object.assign({}, styles.emptyCell, { background: `${colors.BARRIER}` })
 
 const Cell = ({ classes, type }) => {
-  console.log('makecell')
   if (type === 'empty') return <div className={classes.emptyCell} />
   if (type === CRUMPET) return <div className={classes.crumpetCell} />
+  if (type === BARRIER) return <div className={classes.barrierCell} />
   return <div className={classes.snakeCell} />
 }
 

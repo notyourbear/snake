@@ -1,5 +1,5 @@
 import Snake from './logic/snake'
-import { INIT_HEAD, INIT_LENGTH, INIT_DIRECTION } from './constants/board'
+import { INIT_HEAD, INIT_LENGTH, INIT_DIRECTION, BARRIER } from './constants/board'
 import { TICK, CHANGE_DIRECTION } from './actions'
 import { keyCodeToDirection, findNextHeadLocation, validDirectionChange } from '../shared/utilFunctions'
 import * as keyCodes from './constants/keys'
@@ -21,8 +21,9 @@ const reducer = (state = initialState, action) => {
       if (Math.random() < 0.1) board = Game.addCrumpet(board)
       const nextHead = findNextHeadLocation(state.head, state.direction)
       const length = board[nextHead.id].value - 1
+      if (length === 7) board = Game.addBarrier(board, 'star')
       const nextHeadCellType = state.board[nextHead.id].type
-      const gameover = nextHeadCellType === 'snake' ? true : state.gameover
+      const gameover = nextHeadCellType === 'snake' || nextHeadCellType === BARRIER ? true : state.gameover
       board = Game.tick(board)
       if (gameover) board = state.board
 

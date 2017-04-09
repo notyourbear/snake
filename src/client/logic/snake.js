@@ -1,4 +1,4 @@
-import { CRUMPET, BOARD_DIMENSIONS, INIT_HEAD, INIT_LENGTH } from '../constants/board'
+import { CRUMPET, BARRIER, BOARD_DIMENSIONS, INIT_HEAD, INIT_LENGTH } from '../constants/board'
 import { selectRandom, findAvailableSpaces, findNextHeadLocation } from '../../shared/utilFunctions'
 import CellFactory from './cell'
 
@@ -62,6 +62,20 @@ const Snake = () => {
     return newBoard
   }
 
+  const addBarrier = (board, type = 'star') => {
+    const availableSpaces = findAvailableSpaces(board, type)
+    const locations = selectRandom(availableSpaces)
+    const newBoard = Object.assign({}, board)
+    locations.forEach((location) => {
+      const [rowIndex, colIndex] = location
+      const id = Cell.createId(rowIndex, colIndex)
+      const cell = Cell.make(id, location, BARRIER, BARRIER)
+      newBoard[id] = cell
+    })
+
+    return newBoard
+  }
+
   const getCellType = (board, cellLocation) => {
     const [rowIndex, colIndex] = cellLocation
     return board[rowIndex].value[colIndex].type
@@ -74,6 +88,7 @@ const Snake = () => {
     move,
     addSnakeHead,
     getCellType,
+    addBarrier,
   }
 }
 
