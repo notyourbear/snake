@@ -11,11 +11,11 @@ export const selectRandom = (array) => {
   return array[place]
 }
 
-export const findAvailableSpaces = (board, type = 'single') => {
+export const findAvailableSpaces = (board, type = 'single', dimensions = BOARD_DIMENSIONS) => {
   const values = Object.values(board)
   switch (type) {
     case 'star': {
-      const [height, width] = BOARD_DIMENSIONS
+      const [height, width] = dimensions
       return values.reduce((empties, cell) => {
         const [row, col] = cell.location
         switch (true) {
@@ -26,12 +26,12 @@ export const findAvailableSpaces = (board, type = 'single') => {
             const available = checks.reduce((options, check) => {
               if (options.isAvailable === false) return options
               const id = Cell.createId(row + check[0], col + check[1])
-              const locations = options.locations.concat(board[id].location)
+              const locations = options.locations.concat([board[id].location])
               const isAvailable = board[id].type !== 'snake' || board[id].type !== 'barrier'
               return { isAvailable, locations }
-            }, {})
+            }, { locations: [], isAvailable: true })
 
-            return !available.isAvailable ? empties : empties.concat([available.locations])
+            return !available.isAvailable ? empties : empties.concat(available.locations)
           }
         }
       }, [])
