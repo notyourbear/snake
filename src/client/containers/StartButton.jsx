@@ -1,12 +1,15 @@
 import { connect } from 'react-redux'
 
-import { start, tick } from '../actions'
+import { start, tick, reset } from '../actions'
 import Button from '../components/Button'
-import { TICK_LENGTH } from '../constants/board'
+import { TICK_LENGTH, INIT_HEAD } from '../constants/board'
 
 const mapStateToProps = (state) => {
+  const [initRow, initCol] = INIT_HEAD
+  const [headRow, headCol] = state.game.head
+  const label = initRow === headRow && initCol === headCol ? 'Start' : 'Restart'
   return {
-    label: 'Start',
+    label,
     intervalId: state.interval,
   }
 }
@@ -18,6 +21,7 @@ const mapDispatchToProps = (dispatch) => {
       const intervalId = setInterval(() => {
         dispatch(tick())
       }, TICK_LENGTH)
+      dispatch(reset())
       return dispatch(start(intervalId))
     },
   }
