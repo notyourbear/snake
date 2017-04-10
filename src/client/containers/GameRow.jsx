@@ -12,7 +12,7 @@ const rowSelector = (state, props) => {
 
 const filteredRowSelector = createSelector(rowSelector, (row) => {
   return row.reduce((acc, cell) => {
-    return acc.concat({ id: cell.id, type: cell.type })
+    return acc.concat({ id: cell.id, type: cell.type, value: cell.value })
   }, [])
 })
 

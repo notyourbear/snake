@@ -18,7 +18,7 @@ const Row = ({ classes, row }) => {
   return (
     <li className={classes.row}>
       { row.map((cell) => {
-        return <Cell key={cell.id} type={cell.type} />
+        return <Cell key={cell.id} type={cell.type} value={cell.value} />
       }) }
     </li>)
 }

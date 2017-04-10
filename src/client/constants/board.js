@@ -6,4 +6,6 @@ export const INIT_HEAD = [4, 5]
 export const INIT_LENGTH = 3
 export const TICK_LENGTH = 50
 export const BARRIER = 'barrier'
-export const BARRIER_TIMER = 20
+export const PREBARRIER = 'pre'
+export const BARRIER_TIMER = 30
+export const EMPTY = 'empty'

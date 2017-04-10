@@ -1,5 +1,7 @@
+import { EMPTY } from '../constants/board'
+
 const CellFactory = () => {
-  const make = (id, location, type = 'empty', value = 0) => {
+  const make = (id, location, type = EMPTY, value = 0) => {
     return {
       id,
       location,
