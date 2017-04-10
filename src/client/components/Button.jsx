@@ -14,6 +14,17 @@ const styles = {
     marginBottom: '0',
     lineHeight: '0',
     borderRadius: '0',
+    '&:hover': {
+      borderColor: 'white',
+      color: 'white',
+    },
+    '&:active': {
+      color: `${colors.FONT}`,
+    },
+    '&:focus': {
+      borderColor: `${colors.BORDER}`,
+      color: `${colors.FONT}`,
+    },
   },
 }
 

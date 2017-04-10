@@ -1,20 +1,35 @@
 import React, { PropTypes } from 'react'
 import injectSheet from 'react-jss'
+import { connect } from 'react-redux'
 
 import Gameboard from './containers/Gameboard'
 import Header from './components/Header'
+import { changeDirection } from './actions'
+import * as colors from '../shared/colors'
+
 
 const styles = {
   container: {
     marginTop: '50px',
+    '&:focus': {
+      outline: 0,
+      border: colors.BACKGROUND,
+    },
   },
 }
 
-const App = ({ classes }) => {
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleKeystroke: e => dispatch(changeDirection(e.keyCode)),
+  }
+}
+
+
+const App = ({ classes, handleKeystroke }) => {
   const containerClass = `${classes.container} container`
 
   return (
-    <div className={containerClass}>
+    <div tabIndex={0} onKeyDown={handleKeystroke} className={containerClass}>
       <div className="row">
         <div className="two columns">&nbsp;</div>
         <div className="eight columns">
@@ -32,7 +47,8 @@ const App = ({ classes }) => {
 }
 
 App.propTypes = {
+  handleKeystroke: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 }
 
-export default injectSheet(styles)(App)
+export default connect(null, mapDispatchToProps)(injectSheet(styles)(App))

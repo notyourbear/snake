@@ -16,7 +16,7 @@ const styles = {
   },
 }
 
-const Board = ({ classes, height, handleKeystroke, gameover, intervalId }) => {
+const Board = ({ classes, height, gameover, intervalId }) => {
   const rowIds = []
   for (let i = 0; i < height; i++) {
     rowIds.push(i)
@@ -25,7 +25,7 @@ const Board = ({ classes, height, handleKeystroke, gameover, intervalId }) => {
   if (gameover) clearInterval(intervalId)
   return (
     <div className="eight columns">
-      <ul autoFocus tabIndex={0} onKeyDown={handleKeystroke} className={classes.board}>
+      <ul className={classes.board}>
         { rowIds.map((id) => {
           return <GameRow key={id} id={id} />
         }) }
@@ -39,7 +39,6 @@ Board.propTypes = {
   intervalId: PropTypes.oneOfType([PropTypes.number, PropTypes.object]).isRequired,
   gameover: PropTypes.bool.isRequired,
   classes: PropTypes.object.isRequired,
-  handleKeystroke: PropTypes.func.isRequired,
 }
 
 export default injectSheet(styles)(Board)
