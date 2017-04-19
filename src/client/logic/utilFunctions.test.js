@@ -1,6 +1,6 @@
 import * as util from './utilFunctions'
 import makeTestBoard from './testFunctions'
-import CellFactory from '../client/logic/cell'
+import CellFactory from './cell'
 
 const Cell = CellFactory()
 

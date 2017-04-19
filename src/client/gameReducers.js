@@ -1,7 +1,7 @@
 import Snake from './logic/snake'
 import { INIT_HEAD, INIT_LENGTH, INIT_DIRECTION, BARRIER } from './constants/board'
 import { TICK, CHANGE_DIRECTION, RESET } from './actions'
-import { keyCodeToDirection, findNextHeadLocation, validDirectionChange } from '../shared/utilFunctions'
+import { keyCodeToDirection, findNextHeadLocation, validDirectionChange } from './logic/utilFunctions'
 import * as keyCodes from './constants/keys'
 
 const Game = Snake()

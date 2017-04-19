@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/prefer-default-export
-import { BOARD_DIMENSIONS } from '../client/constants/board'
-import * as keyCodes from '../client/constants/keys'
-import CellFactory from '../client/logic/cell'
+import { BOARD_DIMENSIONS } from '../constants/board'
+import * as keyCodes from '../constants/keys'
+import CellFactory from './cell'
 
 const Cell = CellFactory()
 

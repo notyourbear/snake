@@ -2,7 +2,7 @@
 import Snake from './snake'
 import { CRUMPET } from '../constants/board'
 import CellFactory from './cell'
-import makeTestBoard from '../../shared/testFunctions'
+import makeTestBoard from './testFunctions'
 
 const Cell = CellFactory()
 const game = Snake()

@@ -1,7 +1,7 @@
 import { CRUMPET, PREBARRIER, EMPTY, BARRIER,
   BARRIER_TIMER, BOARD_DIMENSIONS,
   INIT_HEAD, INIT_LENGTH } from '../constants/board'
-import { selectRandom, findAvailableSpaces, findNextHeadLocation } from '../../shared/utilFunctions'
+import { selectRandom, findAvailableSpaces, findNextHeadLocation } from './utilFunctions'
 import CellFactory from './cell'
 
 const Cell = CellFactory()

@@ -1,4 +1,4 @@
-import Snake from '../client/logic/snake'
+import Snake from './snake'
 
 const game = Snake()
 
