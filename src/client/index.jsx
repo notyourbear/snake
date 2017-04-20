@@ -8,8 +8,8 @@ import { createStore, combineReducers } from 'redux'
 import { BrowserRouter } from 'react-router-dom'
 
 import App from './app'
-import game from './gameReducers'
-import interval from './intervalReducers'
+import game from './reducers/gameReducers'
+import interval from './reducers/intervalReducers'
 
 import { APP_CONTAINER_SELECTOR } from '../shared/config'
 import { isProd } from '../shared/util'

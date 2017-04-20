@@ -1,4 +1,4 @@
-import { START } from './actions'
+import { START } from '../actions'
 
 const reducer = (state = 0, action) => {
   switch (action.type) {
