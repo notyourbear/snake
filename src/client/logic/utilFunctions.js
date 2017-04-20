@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/prefer-default-export
-import { BOARD_DIMENSIONS } from '../constants/board'
+import { BOARD_DIMENSIONS, BARRIER, SNAKE, EMPTY } from '../constants/board'
 import * as keyCodes from '../constants/keys'
 import CellFactory from './cell'
 
@@ -27,7 +27,7 @@ export const findAvailableSpaces = (board, type = 'single', dimensions = BOARD_D
               if (options.isAvailable === false) return options
               const id = Cell.createId(row + check[0], col + check[1])
               const locations = options.locations.concat([board[id].location])
-              const isAvailable = board[id].type !== 'snake' || board[id].type !== 'barrier'
+              const isAvailable = board[id].type !== SNAKE || board[id].type !== BARRIER
               return { isAvailable, locations }
             }, { locations: [], isAvailable: true })
 
@@ -38,7 +38,7 @@ export const findAvailableSpaces = (board, type = 'single', dimensions = BOARD_D
     }
     default: {
       return values.reduce((empties, cell) => {
-        return cell.type === 'empty' ? empties.concat([cell.location]) : empties
+        return cell.type === EMPTY ? empties.concat([cell.location]) : empties
       }, [])
     }
   }

@@ -1,5 +1,5 @@
 import Snake from './logic/snake'
-import { INIT_HEAD, INIT_LENGTH, INIT_DIRECTION, BARRIER } from './constants/board'
+import { INIT_HEAD, INIT_LENGTH, INIT_DIRECTION, BARRIER, SNAKE } from './constants/board'
 import { TICK, CHANGE_DIRECTION, RESET } from './actions'
 import { keyCodeToDirection, findNextHeadLocation, validDirectionChange } from './logic/utilFunctions'
 import * as keyCodes from './constants/keys'
@@ -22,7 +22,7 @@ const reducer = (state = initialState, action) => {
     case TICK: {
       const nextHead = findNextHeadLocation(state.head, state.direction)
       const nextHeadCellType = state.board[nextHead.id].type
-      const gameover = nextHeadCellType === 'snake' || nextHeadCellType === BARRIER ? true : state.gameover
+      const gameover = (nextHeadCellType === SNAKE || nextHeadCellType === BARRIER) ? true : state.gameover
 
       let board = Game.move(state.board, state.head, state.direction, state.length)
       const length = board[nextHead.id].value - 1

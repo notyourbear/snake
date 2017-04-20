@@ -1,6 +1,6 @@
 import { CRUMPET, PREBARRIER, EMPTY, BARRIER,
   BARRIER_TIMER, BOARD_DIMENSIONS,
-  INIT_HEAD, INIT_LENGTH } from '../constants/board'
+  INIT_HEAD, INIT_LENGTH, SNAKE } from '../constants/board'
 import { selectRandom, findAvailableSpaces, findNextHeadLocation } from './utilFunctions'
 import CellFactory from './cell'
 
@@ -23,7 +23,7 @@ const Snake = () => {
   const addSnakeHead = (board, headLocation = INIT_HEAD, snakeLength = INIT_LENGTH) => {
     const [rIndex, cIndex] = headLocation
     const id = Cell.createId(rIndex, cIndex)
-    const snakehead = Cell.make(id, headLocation, 'snake', snakeLength)
+    const snakehead = Cell.make(id, headLocation, SNAKE, snakeLength)
     const newBoard = Object.assign({}, board)
     newBoard[id] = snakehead
 
@@ -33,7 +33,7 @@ const Snake = () => {
   const move = (board, headLocation, direction, snakeLength) => {
     const nextHead = findNextHeadLocation(headLocation, direction)
     const value = board[nextHead.id].type === CRUMPET ? snakeLength + 2 : snakeLength + 1
-    const cell = Cell.make(nextHead.id, nextHead.location, 'snake', value)
+    const cell = Cell.make(nextHead.id, nextHead.location, SNAKE, value)
     const newBoard = Object.assign({}, board)
     newBoard[nextHead.id] = cell
 
@@ -47,7 +47,7 @@ const Snake = () => {
       const value = cell.value <= 1 ? 0 : cell.value - 1
       let type = cell.type
       if (value === 0) {
-        if (cell.type === 'snake') type = EMPTY
+        if (cell.type === SNAKE) type = EMPTY
         if (cell.type === PREBARRIER) type = BARRIER
       }
 

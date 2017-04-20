@@ -9,3 +9,4 @@ export const BARRIER = 'barrier'
 export const PREBARRIER = 'pre'
 export const BARRIER_TIMER = 30
 export const EMPTY = 'empty'
+export const SNAKE = 'snake'
