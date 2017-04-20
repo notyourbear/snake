@@ -3,6 +3,7 @@ import injectSheet from 'react-jss'
 import pure from 'recompose/pure'
 
 import * as colors from '../../shared/colors'
+import * as css from '../constants/styles/board'
 import Cell from './Cell'
 
 const styles = {
@@ -10,7 +11,7 @@ const styles = {
     background: `${colors.BACKGROUND}`,
     margin: 0,
     padding: 0,
-    height: '16px',
+    height: css.ROW_HEIGHT,
   },
 }
 

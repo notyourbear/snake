@@ -1,7 +1,7 @@
 /* eslint max-len: "off" */
-import Snake from './snake'
-import { CRUMPET } from '../constants/board'
-import CellFactory from './cell'
+import Snake from '../snake'
+import { CRUMPET } from '../../constants/board'
+import CellFactory from '../cell'
 import makeTestBoard from './testFunctions'
 
 const Cell = CellFactory()

@@ -20,17 +20,18 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, initialState, { head: state.head, direction: state.direction })
     }
     case TICK: {
-      let board = Game.move(state.board, state.head, state.direction, state.length)
-      if (Math.random() < 0.1) board = Game.addCrumpet(board)
       const nextHead = findNextHeadLocation(state.head, state.direction)
-      const length = board[nextHead.id].value - 1
-      if (length > 8 && Math.random() < 0.01) board = Game.addBarrier(board, 'star')
       const nextHeadCellType = state.board[nextHead.id].type
       const gameover = nextHeadCellType === 'snake' || nextHeadCellType === BARRIER ? true : state.gameover
+
+      let board = Game.move(state.board, state.head, state.direction, state.length)
+      const length = board[nextHead.id].value - 1
+      if (Math.random() < 0.1) board = Game.addCrumpet(board)
+      if (length > 8 && Math.random() < 0.01) board = Game.addBarrier(board, 'star')
       board = Game.tick(board)
       if (gameover) board = state.board
 
-      return Object.assign({}, state, { board, head: nextHead.location, length, gameover })
+      return Object.assign({}, state, { board, length, gameover, head: nextHead.location })
     }
     case CHANGE_DIRECTION: {
       if (!validDirectionChange(action.payload, state.direction)) return state
