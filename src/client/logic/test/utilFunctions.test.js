@@ -1,5 +1,5 @@
 import * as util from '../utilFunctions'
-import makeTestBoard from './testFunctions'
+import { makeTestBoard } from './testFunctions'
 import CellFactory from '../cell'
 
 const Cell = CellFactory()

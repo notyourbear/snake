@@ -1,8 +1,9 @@
 /* eslint max-len: "off" */
 import Snake from '../snake'
-import { CRUMPET, SNAKE } from '../../constants/board'
+import { CRUMPET, SNAKE,
+  BOARD_DIMENSIONS, PREBARRIER } from '../../constants/board'
 import CellFactory from '../cell'
-import makeTestBoard from './testFunctions'
+import { makeTestBoard, findSpaces } from './testFunctions'
 
 const Cell = CellFactory()
 const game = Snake()
@@ -46,4 +47,11 @@ test('Snake.move', () => {
   const expected = makeTestBoard([after, before])
 
   expect(game.move(makeTestBoard([before]), [0, 1], 'left', 3)).toEqual(expected)
+})
+
+test('Snake.addBarrier:star', () => {
+  let tboard = makeTestBoard([], BOARD_DIMENSIONS)
+  tboard = game.addBarrier(tboard)
+  const spaces = findSpaces(tboard, PREBARRIER)
+  expect(spaces.length).toEqual(5)
 })

@@ -83,18 +83,12 @@ const Snake = () => {
     return newBoard
   }
 
-  const getCellType = (board, cellLocation) => {
-    const [rowIndex, colIndex] = cellLocation
-    return board[rowIndex].value[colIndex].type
-  }
-
   return {
     makeBoard,
     tick,
     addCrumpet,
     move,
     addSnakeHead,
-    getCellType,
     addBarrier,
   }
 }

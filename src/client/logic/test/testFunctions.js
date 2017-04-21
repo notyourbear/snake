@@ -2,7 +2,8 @@ import Snake from '../snake'
 
 const game = Snake()
 
-const makeTestBoard = (cells, dimensions = [2, 2]) => {
+// eslint-disable-next-line import/prefer-default-export
+export const makeTestBoard = (cells, dimensions = [2, 2]) => {
   const board = game.makeBoard(dimensions)
   cells.forEach((cell) => {
     board[cell.id] = cell
@@ -11,4 +12,8 @@ const makeTestBoard = (cells, dimensions = [2, 2]) => {
   return Object.assign({}, board)
 }
 
-export default makeTestBoard
+export const findSpaces = (board, type) => {
+  return (Object.values(board)).reduce((acc, cell) => {
+    return (cell.type === type) ? acc.concat([cell.location]) : acc
+  }, [])
+}
