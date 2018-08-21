@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import Gameboard from './containers/Gameboard'
 import Header from './components/Header'
 import { changeDirection } from './actions'
-import * as colors from '../shared/colors'
+import * as colors from './colors'
 
 
 const styles = {

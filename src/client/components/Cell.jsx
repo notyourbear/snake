@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import injectSheet from 'react-jss'
 import pure from 'recompose/pure'
 
-import * as colors from '../../shared/colors'
+import * as colors from '../colors'
 import * as css from '../constants/styles/board'
 import { CRUMPET, BARRIER, PREBARRIER, EMPTY } from '../constants/board'
 

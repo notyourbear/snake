@@ -1,8 +1,8 @@
 import path from 'path'
 import webpack from 'webpack'
 
-import { WDS_PORT } from './src/shared/config'
-import { isProd } from './src/shared/util'
+import { WDS_PORT } from './src/client/config'
+import { isProd } from './src/client/util'
 
 export default {
   entry: [

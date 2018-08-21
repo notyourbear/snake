@@ -11,8 +11,8 @@ import App from './app'
 import game from './reducers/gameReducers'
 import interval from './reducers/intervalReducers'
 
-import { APP_CONTAINER_SELECTOR } from '../shared/config'
-import { isProd } from '../shared/util'
+import { APP_CONTAINER_SELECTOR } from './config'
+import { isProd } from './util'
 
 const store = createStore(combineReducers({ game, interval }),
   // eslint-disable-next-line no-underscore-dangle

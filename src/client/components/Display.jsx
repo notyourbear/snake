@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import injectSheet from 'react-jss'
 import pure from 'recompose/pure'
 
-import * as colors from '../../shared/colors'
+import * as colors from '../colors'
 import { INIT_LENGTH } from '../constants/board'
 
 const styles = {

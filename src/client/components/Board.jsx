@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import injectSheet from 'react-jss'
 
 import GameRow from '../containers/GameRow'
-import * as colors from '../../shared/colors'
+import * as colors from '../colors'
 
 const styles = {
   board: {

@@ -1,6 +1,6 @@
 {
   "name": "snake",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "license": "MIT",
   "browserslist": [
@@ -14,9 +14,7 @@
     "test": "yarn lint && jest --coverage",
     "precommit": "yarn test",
     "prepush": "yarn test && yarn prod:build",
-    "prod:build": "rimraf lib dist && babel src -d lib --ignore .test.js && NODE_ENV=production webpack -p --progress",
-    "prod:start": "heroku local",
-    "heroku-postbuild": "yarn prod:build"
+    "prod:build": "rimraf lib dist && babel src -d lib --ignore .test.js && NODE_ENV=production webpack -p --progress"
   },
   "devDependencies": {
     "babel-cli": "^6.24.0",

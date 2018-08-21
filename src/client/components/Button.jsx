@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import injectSheet from 'react-jss'
 
-import * as colors from '../../shared/colors'
+import * as colors from '../colors'
 
 const styles = {
   button: {
